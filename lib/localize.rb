@@ -1,11 +1,16 @@
+# encoding: utf-8
 module Localize
+  if RUBY_VERSION < '1.9'
+    $KCODE = 'u'
+  end
+
   autoload :YAMLadapter, File.join(File.dirname(__FILE__), 'localize/adapters/yaml')
-  
+
   @@default_locale = :en
   @@locale = @@default_locale
   @@store = :yaml
   @@location = ''
-    
+
   class << self
     def load(locale=nil, location=nil)
       @@locale = locale if locale
