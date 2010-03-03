@@ -10,30 +10,17 @@ module Localize
     def load(locale=nil, location=nil)
       @@locale = locale if locale
       @@location = location if location
-      #Translate.new
-      tr(@@store)
+      Translation.new(tr(@@store))
     end
     
     def tr(adapter)
       ret = case adapter
         when :yaml
-          to_obj YAMLadapter.get_trans
+          YAMLadapter.get_trans
         else
           raise "Adapter not avalaible: #{adapter}"
       end
       return ret
-    end
-    
-    def to_obj(hash)
-      obj = Translation.new
-      hash.each_pair do |key, value|
-        if value.is_a?(Hash)
-          obj.set(key, to_obj(value))
-        else
-          obj.set(key, value)
-        end
-      end
-      obj
     end
     
     def store=(str)
@@ -70,16 +57,23 @@ module Localize
   end
   
   class Translation
-    def set(key, value)
-      instance_variable_set("@#{key}", value)
-      
-      self.class.class_eval do
-        define_method("#{key}") { instance_variable_get("@#{key}") }
+    def initialize(hash)
+      hash.each_pair do |key, value|
+        value = Translation.new(value) if value.is_a?(Hash)
+        instance_variable_set("@#{key}", value)
+        self.class.class_eval do
+          define_method("#{key}") { instance_variable_get("@#{key}") }
+        end
       end
     end
-    
-    def method_missing(name)
-      "Translation missing: #{name}"
+
+    def method_missing(name, *params)
+      m_missed(name)
+    end
+
+    def m_missed(name)
+      p "Translation missing: #{name}"
+      self
     end
   end
 end
