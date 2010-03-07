@@ -1,9 +1,8 @@
 # encoding: utf-8
-module Localize
-  if RUBY_VERSION < '1.9'
-    $KCODE = 'u'
-  end
+$KCODE = 'u' if RUBY_VERSION < '1.9'
 
+module Localize
+  
   autoload :YAMLadapter, File.join(File.dirname(__FILE__), 'localize/adapters/yaml')
 
   @@default_locale = :en
@@ -15,20 +14,29 @@ module Localize
     def load(locale=nil, location=nil)
       @@locale = locale if locale
       @@location = location if location
-      Translation.new(tr(@@store))
+      @@trans ||= tr(@@store)
+      @@trans[:text]
+    end
+    
+    def reset!
+      @@trans = nil
     end
     
     def tr(adapter)
-      ret = case adapter
+      ret = case @@store
         when :yaml
           YAMLadapter.get_trans
         else
           raise "Adapter not avalaible: #{adapter}"
       end
-      return ret
+      {
+        :text => Translation.new(ret['text']),
+        :formats => ret['formats']
+      }
     end
     
     def store=(str)
+      reset!
       @@store = str
     end
     
@@ -37,6 +45,7 @@ module Localize
     end
     
     def locale=(loc)
+      reset!
       @@locale = loc
     end
     
@@ -45,6 +54,7 @@ module Localize
     end
     
     def default_locale=(loc)
+      reset!
       @@locale = loc
     end
     
@@ -53,6 +63,7 @@ module Localize
     end
     
     def location=(locat)
+      reset!
       @@location = locat
     end
     
@@ -73,12 +84,13 @@ module Localize
     end
 
     def method_missing(name, *params)
-      m_missed(name)
+      MissString.new('Translation missing: '+name.to_s)
     end
-
-    def m_missed(name)
-      p "Translation missing: #{name}"
-      self
+  end
+  
+  class MissString < String
+    def method_missing(name, *params)
+      self << '.' + name.to_s
     end
   end
 end
