@@ -26,6 +26,8 @@ module Localize
       ret = case @@store
         when :yaml
           YAMLadapter.get_trans
+        when :plain
+          ret = @@location
         else
           raise "Adapter not avalaible: #{adapter}"
       end
