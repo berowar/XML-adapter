@@ -44,6 +44,16 @@ module Localize
         #...
         source.strftime(format)
       end
+
+      # Based on snippet on rubygarden
+      def number(num)
+        locale = Localize.trans[:formats]['numbers']
+        separator = locale['separator']
+        decimal_point = locale['dec_poin']
+        num_parts = self.to_s.split('.')
+        x = num_parts[0].reverse.scan(/.{1,3}/).join(separator).reverse
+        x << decimal_point + num_parts[1] if num_parts.length == 2
+      end
     end
   end
 end
