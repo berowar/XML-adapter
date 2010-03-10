@@ -1,4 +1,4 @@
-Gem::Specification.new do |spec|
+Gem::Specification.new do |s|
   s.name          = "localize"
   s.version       = "0.1"
   s.date          = "2010-03-09"
@@ -13,9 +13,11 @@ Gem::Specification.new do |spec|
   s.files         = %w[
     README.rdoc
     lib/localize.rb
+    lib/localize/formats.rb
     lib/localize/adapters/yaml.rb
     localize.gemspec
-    test/base_test.rb
+    test/formats_test.rb
+    test/translate_test.rb
     test/stores/en.yml
   ]
   

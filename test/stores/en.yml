@@ -2,3 +2,6 @@ text:
     hello: 'world'
     foo:
         bar: 'baz'
+formats:
+    phone:
+        full: '###-##-##'
