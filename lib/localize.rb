@@ -19,11 +19,15 @@ module Localize
       @@trans[:text]
     end
     
-    def l(source)
+    def l(source, format = :full)
       @@trans ||= tr(@@store)
 
         if source.is_a?(Integer)
-          Formats.phone(source)
+          Formats.phone(source, format)
+        elsif source.is_a?(Float)
+          Formats.number(source)
+        elsif source.is_a?(Time) or source.is_a?(Date)
+          Formats.date(source, format)
         else
           raise "Format not recognize"
         end
