@@ -1,7 +1,7 @@
 module Localize
   class Formats
     class << self
-      
+
       # Based on snippet in http://snippets.dzone.com/posts/show/2472
       def phone(str, format = :full)
         require 'strscan'
@@ -35,11 +35,11 @@ module Localize
 
         result
       end
-      
+
       def date(source, format = :full)
         locale = Localize.trans[:formats]['date']
         format = locale['format'][format]
-        
+
         format.gsub!(/%a/, locale['day_names_short'][source.wday])
         format.gsub!(/%A/, locale['day_names_full'][source.wday])
         format.gsub!(/%b/, locale['mon_names_short'][source.mon-1])
