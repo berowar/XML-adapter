@@ -6,11 +6,11 @@ describe Localize do
   end
 
   it "Format phone numbers" do
-    Localize.l(380446666666).should == '+380 (44) 666-66-66'
+    Localize.f(380446666666, :full).should == '+380 (44) 666-66-66'
   end
 
   it "Format and truncate phone numbers" do
-    Localize.l(380446666666, :short).should == '666-66-66'
+    Localize.f(380446666666, :short).should == '666-66-66'
   end
   
   it "Localize dates" do
