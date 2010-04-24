@@ -69,7 +69,7 @@ module Localize
 
     def store=(str)
       reset!
-      @@store = str
+      @@store = str.to_sym
     end
 
     def store
@@ -87,7 +87,7 @@ module Localize
 
     def default_locale=(loc)
       reset!
-      @@locale = loc
+      @@locale = loc.to_sym
     end
 
     def default_locale

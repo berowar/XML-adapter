@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
     README.rdoc
     lib/localize.rb
     lib/localize/formats.rb
+    lib/localize/sinatra.rb
     lib/localize/adapters/yaml.rb
     localize.gemspec
     test/formats_test.rb

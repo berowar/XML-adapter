@@ -1,0 +1,60 @@
+= Localize
+Localize is a small library for internationalization.
+Example:
+
+	puts t.hello # => Hola
+	puts t.hello.world # => Hola, mundo
+	puts f 380441234567 # => +380 (44) 123-45-67
+	puts l Time.utc(2000, "jan"), :short # => Sat 01-Jan-00
+
+== Setup
+
+Set the store, yaml or plain for now, xml and others planned (default yaml):
+
+	Localize.store = :plain
+
+Specify location of the translation files:
+
+	Localize.location = 'lib/translations'
+
+if store is plain, location must be a ruby hash:
+
+	Localize.location = {'text' => {'hello' => 'Hola', 'world' => 'mundo' } }
+
+Set locale:
+
+	Localize.locale = :esp
+
+and default locale (default en):
+
+	Localize.default_locale = :ru
+
+Now, load the translation:
+
+	t = Localize.load
+
+== Translation files
+Translation file must contain two sections: 'text' and 'formats'.
+
+Text section contains translations and can have an unlimited nesting:
+
+	text:
+	    hello: 'hola' # t.hello
+	    foo:
+	        bar: 'baz' # t.foo.bar
+
+Formats section contains different localization rules and formats:
+
+	formats:
+		phone:
+	        :full: '+### (##) ###-##-##'
+	        :short: '###-##-##'
+	    number:
+	        separator: ','
+	        dec_point: '.'
+
+Phone subsection must have format named 'full', and may have arbitrary names which can called by second parameter in f method:
+
+	f(12345678, :short)
+	f(32145687, :other)
+

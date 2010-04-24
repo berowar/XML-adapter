@@ -9,10 +9,6 @@ describe Localize do
     Localize.f(380446666666, :full).should == '+380 (44) 666-66-66'
   end
 
-  it "Format and truncate phone numbers" do
-    Localize.f(380446666666, :short).should == '666-66-66'
-  end
-  
   it "Localize dates" do
     Localize.l(Time.utc(2000, "jan")).should == 'Sat Jan 01 00:00:00 UTC 2000'
   end
