@@ -15,12 +15,28 @@ module Localize
     def load(locale=nil, location=nil)
       @@locale = locale if locale
       @@location = location if location
-      @@trans ||= tr(@@store)
+
+      ret = case @@store
+        when :yaml
+          YAMLadapter.get_trans
+        when :plain
+          @@location
+        else
+          raise "Adapter not avalaible: #{adapter}"
+      end
+      @@trans = {
+        :text => Translation.new(ret['text']),
+        :formats => ret['formats']
+      }
+    end
+
+    def translate
+      load unless @@trans
       @@trans[:text]
     end
 
-    def l(source, format = :full)
-      @@trans ||= tr(@@store)
+    def localize(source, format = :full)
+      load unless @@trans
 
       if source.is_a?(Integer)
         Formats.number(source)
@@ -33,10 +49,12 @@ module Localize
       end
     end
 
-    def f(source, format = :full)
-      @@trans ||= tr(@@store)
+    alias :l :localize
 
-      phone = if source.is_a?(Integer)
+    def phone(source, format = :full)
+      load unless @@trans
+
+      fone = if source.is_a?(Integer)
         source
       elsif source.is_a?(String)
         source.gsub(/[\+., -]/, '').trim.to_i
@@ -45,26 +63,13 @@ module Localize
       else
         raise "Format not recognize"
       end
-      Formats.phone(phone, format)
+      Formats.phone(fone, format)
     end
+
+    alias :f :phone
 
     def reset!
       @@trans = nil
-    end
-
-    def tr(adapter)
-      ret = case @@store
-        when :yaml
-          YAMLadapter.get_trans
-        when :plain
-          ret = @@location
-        else
-          raise "Adapter not avalaible: #{adapter}"
-      end
-      {
-        :text => Translation.new(ret['text']),
-        :formats => ret['formats']
-      }
     end
 
     def store=(str)

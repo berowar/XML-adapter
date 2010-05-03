@@ -4,7 +4,7 @@ end
 
 helpers do
   def t
-    @@trans ||= Localize.load
+    Localize.translate
   end
 
   def l(source, format = :full)
