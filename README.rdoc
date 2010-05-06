@@ -26,13 +26,20 @@ Set locale:
 
   Localize.locale = :esp
 
-and default locale (default en):
+and default locale (optional, en by default):
 
   Localize.default_locale = :ru
 
 Now, load the translation:
 
   t = Localize.translate
+
+== Sinatra setup
+sinatra.rb contains predefined helpers <tt>t</tt>, <tt>l</tt> and <tt>f</tt> and set locale from <tt>session['locale']</tt>
+
+  require 'localize/sinatra'
+  Localize.default_locale = :ua
+  Localize.location = 'locales' # Change to your path
 
 == Translation files
 Translation file must contain two sections: 'text' and 'formats'.
@@ -56,6 +63,58 @@ Formats section contains different localization rules and formats:
 
 Phone subsection must have format named 'full', and may have arbitrary names which can called by second parameter in f method:
 
+  f(78977654) # Full format
   f(12345678, :short)
   f(32145687, :other)
 
+Date subsection must contains translations for months and days of the week. Also set formats in strftime format:
+
+  formats:
+    date:
+      format:
+        :full: '%a %b %d %H:%M:%S %Z %Y'
+        :short: '%a %d-%B-%y'
+      day_names:
+        short:
+          - Sun
+          - Mon
+          - Tue
+          - Wed
+          - Thu
+          - Fri
+          - Sat
+        full:
+          - Sunday
+          - Monday
+          - Tuesday
+          - Wednesday
+          - Thursday
+          - Friday
+          - Saturday
+      mon_names:
+        short:
+          - Jan
+          - Feb
+          - Mar
+          - Apr
+          - May
+          - Jun
+          - Jul
+          - Aug
+          - Sep
+          - Oct
+          - Nov
+          - Dec
+        full:
+          - January
+          - February
+          - March
+          - April
+          - May
+          - June
+          - July
+          - August
+          - September
+          - October
+          - November
+          - December

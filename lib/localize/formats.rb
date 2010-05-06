@@ -38,10 +38,10 @@ module Localize
         locale = Localize.trans[:formats]['date']
         format = locale['format'][format]
 
-        format.gsub!(/%a/, locale['day_names_short'][source.wday])
-        format.gsub!(/%A/, locale['day_names_full'][source.wday])
-        format.gsub!(/%b/, locale['mon_names_short'][source.mon-1])
-        format.gsub!(/%B/, locale['mon_names_full'][source.mon-1])
+        format.gsub!(/%a/, locale['day_names']['short'][source.wday])
+        format.gsub!(/%A/, locale['day_names']['full'][source.wday])
+        format.gsub!(/%b/, locale['mon_names']['short'][source.mon-1])
+        format.gsub!(/%B/, locale['mon_names']['full'][source.mon-1])
 
         source.strftime(format)
       end

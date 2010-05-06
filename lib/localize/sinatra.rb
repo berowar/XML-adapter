@@ -1,3 +1,5 @@
+require 'localize'
+
 before do
   Localize.locale = session['locale'] if session['locale']
 end
