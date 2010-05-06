@@ -8,6 +8,11 @@ Example:
   puts l Time.utc(2000, "jan"), :short # => Sat 01-Jan-00
   puts l 1200.05 # => 1.200,05
 
+== Install
+
+  gem install localize
+  require 'localize'
+
 == Setup
 
 Set the store, yaml or plain for now, xml and others planned (default yaml):
@@ -18,9 +23,9 @@ Specify location of the translation files:
 
   Localize.location = 'lib/translations'
 
-if store is plain, location must be a ruby hash:
+if store set to plain, location must be a ruby hash:
 
-  Localize.location = {'text' => {'hello' => 'Hola', 'world' => 'mundo' } }
+  Localize.location = {'text' => { 'hello' => {'world' => 'mundo' } }
 
 Set locale:
 
@@ -33,12 +38,14 @@ and default locale (optional, en by default):
 Now, load the translation:
 
   t = Localize.translate
+  f = Localize.f
+  l = Localize.l
 
 == Sinatra setup
 sinatra.rb contains predefined helpers <tt>t</tt>, <tt>l</tt> and <tt>f</tt> and set locale from <tt>session['locale']</tt>
 
   require 'localize/sinatra'
-  Localize.default_locale = :ua
+  Localize.default_locale = :ru
   Localize.location = 'locales' # Change to your path
 
 == Translation files
