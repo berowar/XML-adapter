@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name          = "localize"
-  s.version       = "0.1"
-  s.date          = "2010-05-06"
+  s.version       = "0.2"
+  s.date          = "2010-09-03"
 
   s.summary       = "Lightweight localization library"
   s.description   = "Lightweight, ruby-way localization solution"
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
     test/formats_test.rb
     test/translate_test.rb
     test/stores/en.yml
+    test/interpolation_test.rb
   ]
   s.require_paths = %w[lib]
 
