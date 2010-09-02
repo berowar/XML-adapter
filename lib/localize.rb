@@ -120,7 +120,14 @@ module Localize
         key = key.to_s
         instance_variable_set("@#{key}", value)
         self.class.class_eval do
-          define_method("#{key}") { instance_variable_get("@#{key}") }
+          define_method("#{key}") do |*args|
+            str = instance_variable_get("@#{key}")
+            if args.length > 0
+              _interpolate(str, args)
+            else
+              str
+            end
+          end
         end
       end
     end
@@ -128,6 +135,14 @@ module Localize
     def method_missing(name, *params)
       MissString.new('Translation missing: '+name.to_s)
     end
+
+    private
+      def _interpolate(string, args)
+        args.length.times do |i|
+          string.gsub!(/\$\{#{i+1}\}/, args[i])
+        end
+        string
+      end
   end
 
   class MissString < String
