@@ -3,9 +3,9 @@ module Localize
     class << self
 
       # Based on snippet in http://snippets.dzone.com/posts/show/2472
-      def phone(str, format = :full)
+      def phone(str, format)
         require 'strscan'
-        pattern = Localize.trans[:formats]['phone'][format]
+        pattern = Localize.trans[:formats]['phone'][format.to_s]
         slots = pattern.count('#')
         source = str.to_s
 
@@ -34,9 +34,9 @@ module Localize
         result
       end
 
-      def date(source, format = :full)
+      def date(source, format)
         locale = Localize.trans[:formats]['date']
-        format = locale['format'][format]
+        format = locale['format'][format.to_s]
 
         format.gsub!(/%a/, locale['day_names']['short'][source.wday])
         format.gsub!(/%A/, locale['day_names']['full'][source.wday])
