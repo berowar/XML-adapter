@@ -4,6 +4,7 @@ $KCODE = 'u' if RUBY_VERSION < '1.9'
 module Localize
 
   autoload :YAMLadapter, File.join(File.dirname(__FILE__), 'localize/adapters/yaml')
+  autoload :XMLadapter, File.join(File.dirname(__FILE__), 'localize/adapters/xml')
   autoload :Formats, File.join(File.dirname(__FILE__), 'localize/formats')
 
   @@default_locale = :en
@@ -19,6 +20,8 @@ module Localize
       ret = case @@store
         when :yaml
           YAMLadapter.get_trans
+        when :xml
+          XMLadapter.get_trans
         when :plain
           @@location
         else
