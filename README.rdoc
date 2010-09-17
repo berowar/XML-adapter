@@ -13,7 +13,7 @@ Example:
 
   gem install localize
   require 'localize'
-
+  
 == Setup
 
 Set the store, yaml or plain for now, xml and others planned (default yaml):

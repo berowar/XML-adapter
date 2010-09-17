@@ -38,10 +38,17 @@ module Localize
         locale = Localize.trans[:formats]['date']
         format = locale['format'][format.to_s]
 
-        format.gsub!(/%a/, locale['day_names']['short'][source.wday])
-        format.gsub!(/%A/, locale['day_names']['full'][source.wday])
-        format.gsub!(/%b/, locale['mon_names']['short'][source.mon-1])
-        format.gsub!(/%B/, locale['mon_names']['full'][source.mon-1])
+        if Localize.store == :xml
+          format.gsub!(/%a/, locale['day_names']['short'].split[source.wday])
+          format.gsub!(/%A/, locale['day_names']['full'].split[source.wday])
+          format.gsub!(/%b/, locale['mon_names']['short'].split[source.mon-1])
+          format.gsub!(/%B/, locale['mon_names']['full'].split[source.mon-1])
+        else
+          format.gsub!(/%a/, locale['day_names']['short'][source.wday])
+          format.gsub!(/%A/, locale['day_names']['full'][source.wday])
+          format.gsub!(/%b/, locale['mon_names']['short'][source.mon-1])
+          format.gsub!(/%B/, locale['mon_names']['full'][source.mon-1])
+        end
 
         source.strftime(format)
       end
