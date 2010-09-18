@@ -12,7 +12,9 @@ Example:
 == Install
 
   gem install localize
+  gem install xml-simple  # if your localization file will be xml format
   require 'localize'
+  
   
 == Setup
 

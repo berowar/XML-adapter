@@ -12,15 +12,15 @@ text:
 
 formats:
     phone:
-        :full: '+### (##) ###-##-##'
-        :short: '###-##-##'
+        full: '+### (##) ###-##-##'
+        short: '###-##-##'
     number:
         separator: ','
         dec_point: '.'
     date:
         format:
-            :full: '%a %b %d %H:%M:%S %Z %Y'
-            :short: '%a %d-%B-%y'
+            full: '%a %b %d %H:%M:%S %Z %Y'
+            short: '%a %d-%B-%y'
         day_names:
             short:
                 - Sun

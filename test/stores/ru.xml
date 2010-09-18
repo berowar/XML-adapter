@@ -1,0 +1,14 @@
+<ru>
+  <text>
+    <hello>Привет</hello>
+    <goodbye>Пока</goodbye>
+    <how_are_you>
+      <man>Как ты, чувак?</man>
+      <girl>Как ты, подруга?</girl>
+    </how_are_you>
+  </text>
+  <formats></formats>
+</ru>
+
+
+

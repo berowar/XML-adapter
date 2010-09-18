@@ -1,0 +1,42 @@
+<en>
+  <text>
+    <hello>world</hello>
+    <foo>
+      <bar>baz</bar>
+    </foo>
+    <interp_test>
+      <one>It interpolate ${1} param</one>
+      <many>It interpolate ${1}, ${2}, ${3} and more params</many>
+      <shuffle>It shuffle ${2}, ${3}, ${1}</shuffle>
+      <repeat>It repeat ${1}, ${2}, ${1}</repeat>
+      <ignore>It print ${1}, ${2}, and not print other</ignore>
+      <ignore_more>It print ${1}, ${2}, but not ${3}</ignore_more>
+    </interp_test>
+  </text>
+  <formats>
+    <phone>
+      <full>+### (##) ###-##-##</full>
+      <short>###-##-##</short>
+    </phone>
+    <number>
+      <separator>,</separator>
+      <dec_point>.</dec_point>
+    </number>
+    <date>
+      <format>
+        <full>%a %b %d %H:%M:%S %Z %Y</full>
+        <short>%a %d-%B-%y</short>
+      </format>
+      <day_names>
+        <short>Sun Mon Tue Wed Thu Fri Sat</short>
+        <full>Sunday Monday Tuesday Wednesday Thursday Friday Saturday</full>
+      </day_names>
+      <mon_names>
+        <short>Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</short>
+        <full>January February March April May June July August September October November December</full>
+      </mon_names>
+    </date>
+  </formats>
+</en>
+
+          
